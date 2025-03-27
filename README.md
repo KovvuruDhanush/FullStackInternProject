@@ -1,81 +1,120 @@
-# Store Rating App
+# Store Rating Application
 
-## Overview
-The **Store Rating App** is a web application that allows users to rate stores based on their experience. It consists of a backend built using **Spring Boot** and a frontend developed with **React.js**.
+A full-stack web application for store ratings and reviews, built with React.js, Express.js, and PostgreSQL.
 
-## Features
-### Backend (Spring Boot)
-- REST API for managing store ratings
-- User authentication and authorization
-- Database integration with PostgreSQL
-- Error handling and validation
+## Database Schema
 
-### Frontend (React.js)
-- User-friendly UI for rating stores
-- Dynamic updates using React state
-- API integration with backend
+### Users Table
+```sql
+CREATE TABLE users (
+    id SERIAL PRIMARY KEY,
+    username VARCHAR(50) UNIQUE NOT NULL,
+    email VARCHAR(100) UNIQUE NOT NULL,
+    password_hash VARCHAR(255) NOT NULL,
+    role VARCHAR(20) DEFAULT 'user',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+```
 
-## Tech Stack
-### Backend:
-- **Spring Boot** (Java)
-- **PostgreSQL** (Database)
-- **Spring Security** (Authentication & Authorization)
-- **JWT** (Token-based authentication)
-- **Maven** (Build tool)
+### Stores Table
+```sql
+CREATE TABLE stores (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    description TEXT,
+    address TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+```
 
-### Frontend:
-- **React.js** (JavaScript)
-- **Axios** (API calls)
-- **Tailwind CSS** (Styling)
+### Ratings Table
+```sql
+CREATE TABLE ratings (
+    id SERIAL PRIMARY KEY,
+    user_id INTEGER REFERENCES users(id),
+    store_id INTEGER REFERENCES stores(id),
+    rating INTEGER CHECK (rating >= 1 AND rating <= 5),
+    comment TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    UNIQUE(user_id, store_id)
+);
+```
 
-## Installation
+## Project Setup
+
+### Prerequisites
+- Node.js (v14 or higher)
+- PostgreSQL (v12 or higher)
+- npm or yarn package manager
+
 ### Backend Setup
-1. Clone the repository:
-   ```sh
-   git clone https://github.com/yourusername/store-rating-backend.git
-   cd store-rating-backend
+1. Navigate to the backend directory:
+   ```bash
+   cd backend
    ```
-2. Configure the database in `application.properties`:
-   ```properties
-   spring.datasource.url=jdbc:postgresql://localhost:5432/store_rating
-   spring.datasource.username=your_db_username
-   spring.datasource.password=your_db_password
+
+2. Install dependencies:
+   ```bash
+   npm install
    ```
-3. Run the application:
-   ```sh
-   mvn spring-boot:run
+
+3. Create a `.env` file in the backend directory with the following variables:
+   ```env
+   PORT=3000
+   DB_HOST=localhost
+   DB_PORT=5432
+   DB_NAME=store_rating_db
+   DB_USER=your_username
+   DB_PASSWORD=your_password
+   JWT_SECRET=your_jwt_secret
+   ```
+
+4. Start the backend server:
+   ```bash
+   npm run dev
    ```
 
 ### Frontend Setup
-1. Clone the repository:
-   ```sh
-   git clone https://github.com/yourusername/store-rating-frontend.git
-   cd store-rating-frontend
+1. Navigate to the frontend directory:
+   ```bash
+   cd frontend
    ```
+
 2. Install dependencies:
-   ```sh
+   ```bash
    npm install
    ```
-3. Start the React app:
-   ```sh
+
+3. Start the frontend development server:
+   ```bash
    npm start
    ```
 
+## Features
+- User authentication and authorization
+- Store listing and details
+- Rating submission with comments
+- User profile with rating history
+- Interactive rating component
+- Role-based access control
+
 ## API Endpoints
+
 ### Authentication
-- `POST /api/auth/register` - Register a new user
-- `POST /api/auth/login` - Authenticate user and get token
+- POST /api/auth/register - Register new user
+- POST /api/auth/login - User login
 
-### Store Ratings
-- `GET /api/stores` - Get all stores
-- `POST /api/stores/{id}/rate` - Rate a store
-- `GET /api/stores/{id}/ratings` - Get store ratings
+### Users
+- GET /api/users/profile - Get user profile
+- PUT /api/users/profile - Update user profile
 
-## Contributing
-Feel free to fork the repository and submit pull requests. Contributions are welcome! 😊
+### Stores
+- GET /api/stores - List all stores
+- GET /api/stores/:id - Get store details
+- POST /api/stores - Create new store (admin only)
+- PUT /api/stores/:id - Update store (admin only)
 
-## License
-This project is licensed under the MIT License.
-
-## Contact
-For any queries, reach out at kovurudhanush@gmail.com .
+### Ratings
+- POST /api/ratings - Submit new rating
+- GET /api/ratings/user - Get user's ratings
+- GET /api/ratings/store/:id - Get store's ratings

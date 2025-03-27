@@ -1,10 +1,14 @@
 const express = require('express');
 const cors = require('cors');
 const dotenv = require('dotenv');
+const { createUserTable } = require('./models/userModel');
+const { createStoreTable } = require('./models/storeModel');
+const { createRatingTable } = require('./models/ratingModel');
 const authRoutes = require('./routes/authRoutes');
-const storeRoutes = require('./routes/storeRoutes');
 const userRoutes = require('./routes/userRoutes');
-const pool = require('./config/db'); // Import the pool object
+const storeRoutes = require('./routes/storeRoutes');
+const ratingRoutes = require('./routes/ratingRoutes');
+const pool = require('./config/db');
 
 dotenv.config();
 
@@ -12,6 +16,15 @@ const app = express();
 
 app.use(cors());
 app.use(express.json());
+
+// Initialize database tables
+const initializeTables = async () => {
+  await createUserTable();
+  await createStoreTable();
+  await createRatingTable();
+};
+
+initializeTables();
 
 // Test database connection
 app.get('/test-db', async (req, res) => {
@@ -27,5 +40,6 @@ app.get('/test-db', async (req, res) => {
 app.use('/api/auth', authRoutes);
 app.use('/api/stores', storeRoutes);
 app.use('/api/users', userRoutes);
+app.use('/api/ratings', ratingRoutes);
 
 module.exports = app;

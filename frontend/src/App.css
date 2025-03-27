@@ -1,71 +1,120 @@
 body {
-  font-family: Arial, sans-serif;
+  font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
   margin: 0;
   padding: 0;
+  background: #f8f9fa;
+  color: #2d3436;
+  line-height: 1.6;
 }
 
 header {
-  background-color: #333;
+  background: linear-gradient(135deg, #6e8efb, #a777e3);
   color: white;
-  padding: 10px 20px;
+  padding: 1rem 2rem;
   text-align: center;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
 header nav a {
   color: white;
-  margin: 0 10px;
+  margin: 0 1rem;
   text-decoration: none;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+}
+
+header nav a:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateY(-1px);
 }
 
 footer {
-  background-color: #333;
+  background: linear-gradient(135deg, #6e8efb, #a777e3);
   color: white;
   text-align: center;
-  padding: 10px 20px;
+  padding: 1rem;
   position: fixed;
   bottom: 0;
   width: 100%;
+  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
 }
 
 form {
-  margin: 20px;
+  margin: 2rem auto;
+  max-width: 600px;
+  padding: 2rem;
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
 }
 
 form div {
-  margin-bottom: 10px;
+  margin-bottom: 1.5rem;
 }
 
 form label {
   display: block;
-  margin-bottom: 5px;
+  margin-bottom: 0.5rem;
+  color: #495057;
+  font-weight: 500;
 }
 
 form input, form select {
   width: 100%;
-  padding: 8px;
-  margin-bottom: 10px;
+  padding: 1rem;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  background: rgba(255, 255, 255, 0.9);
+}
+
+form input:focus, form select:focus {
+  outline: none;
+  border-color: #6e8efb;
+  box-shadow: 0 0 0 3px rgba(110, 142, 251, 0.2);
 }
 
 form button {
-  padding: 10px 20px;
-  background-color: #333;
+  width: 100%;
+  padding: 1rem;
+  background: linear-gradient(135deg, #6e8efb, #a777e3);
   color: white;
   border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
   cursor: pointer;
+  transition: all 0.3s ease;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
 }
 
 form button:hover {
-  background-color: #555;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(110, 142, 251, 0.4);
 }
 
 ul {
   list-style-type: none;
   padding: 0;
+  max-width: 800px;
+  margin: 2rem auto;
 }
 
 ul li {
-  background-color: #f4f4f4;
-  margin: 5px 0;
-  padding: 10px;
-  border: 1px solid #ddd;
+  background: white;
+  margin: 1rem 0;
+  padding: 1.5rem;
+  border-radius: 12px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+}
+
+ul li:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
 }

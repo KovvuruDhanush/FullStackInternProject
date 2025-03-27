@@ -7,6 +7,7 @@ const createStoreTable = async () => {
       name VARCHAR(60) NOT NULL,
       email VARCHAR(255) UNIQUE NOT NULL,
       address VARCHAR(400),
+      owner_id INTEGER REFERENCES users(id) ON DELETE SET NULL,
       created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     );
   `;

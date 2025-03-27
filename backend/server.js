@@ -1,6 +1,18 @@
-const app = require('./app');
-const PORT = process.env.PORT || 5000;
+const express = require('express');
+const http = require('http');
 
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+const app = require('./app');
+const WebSocketService = require('./services/websocketService');
+
+const port = process.env.PORT || 5002;
+const server = http.createServer(app);
+
+// Initialize WebSocket service
+const wsService = new WebSocketService(server);
+
+// Make wsService available globally
+global.wsService = wsService;
+
+server.listen(port, () => {
+    console.log(`Server is running on port ${port}`);
 });
